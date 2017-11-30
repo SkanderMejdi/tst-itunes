@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Example Backbone App</title>
+  <!-- load the bootstrap stylesheet -->
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="animate.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Intersec : Technical selection test</h1>
+    </div>
+
+    <div class="row">
+      <div id="search" class="col-md-6">
+      </div>
+      <div class="col-md-6" id="cart">
+      </div>
+    </div>
+  </div>
+
+  <script type="text/template" id="trackTemplate">
+    <div class="result animated fadeIn" >
+      <a href="<%= track.trackViewUrl %>" target="_blank">
+        <img src="<%= track.artworkUrl100 %>" />
+        <div class="result__text">
+          <span class="artist-name"><%= track.artistName %></span>
+          <span class="track-name"><%= track.trackName %></span>
+        </div>
+      </a>
+      <a class="add"
+      data-name="<%= track.trackName %>"
+      data-url="<%= track.trackViewUrl %>"
+      data-img="<%= track.artworkUrl100 %>"
+      data-artist="<%= track.artistName %>">+</a>
+    </div>
+  </script>
+
+  <script type="text/template" id="searchTemplate">
+    <input type="text" placeholder="Search" class="form-control"/>
+    <div class="results" id="track-list"></div>
+  </script>
+
+  <script type="text/template" id="cartTemplate">
+
+    <% if (_.isEmpty(cart)) { %>
+      <div class="alert alert-warning">
+        <p>Your cart is empty</p>
+      </div>
+    <% } %>
+
+    <% _.each(cart, function (track) { %>
+      <dl class="dl-horizontal animated bounceIn">
+        <dt>Title</dt>
+        <dd><%= track.name %></dd>
+        <dt>Artiste</dt>
+        <dd><%= track.artist %></dd>
+        <dt>Link</dt>
+        <dd><a href="<%= track.url %>" target="_blank">link</a></dd>
+        <dt>&nbsp;</dt>
+        <dd>
+          <a class="btn btn-xs btn-danger delete" href="javascript:;" data-id="<%= track.id %>">Delete</a>
+        </dd>
+      </dl>
+    <% }); %>
+
+  </script>
+
+  <!-- load the libraries we need -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+  <!-- load our scripts -->
+  <script src="jquery.js"></script>
+  <script src="js/cart_router.js"></script>
+  <script src="js/cart_model.js"></script>
+  <script src="js/views/cart.js"></script>
+  <script src="js/views/track.js"></script>
+  <script src="js/views/search.js"></script>
+  <script src="js/search_model.js"></script>
+  <script>
+    var app = new APP.CartRouter();
+  </script>
+
+</body>
+</html>
